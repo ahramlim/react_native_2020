@@ -1,16 +1,16 @@
-import React from 'react';
-import { Alert } from 'react-native';
+import React from "react";
+import { Alert } from "react-native";
 import Loading from "./Loading";
-import * as Location from 'expo-location';
-import axios from 'axios';
-import Weather from './Weather';
+import * as Location from "expo-location";
+import axios from "axios";
+import Weather from "./Weather";
 
 const API_KEY = "3cadc4c320ec8e3355d0d510bb907c1d";
 
 export default class extends React.Component {
   state = {
     isLoading: true
-  }
+  };
   getWeather = async (latitude, longitude) => {
     const {
       data: {
@@ -24,8 +24,8 @@ export default class extends React.Component {
       isLoading: false,
       condition: weather[0].main,
       temp
-    }); 
-  }
+    });
+  };
   getLocation = async () => {
     try {
       await Location.requestPermissionsAsync();
@@ -33,11 +33,10 @@ export default class extends React.Component {
         coords: { latitude, longitude }
       } = await Location.getCurrentPositionAsync();
       this.getWeather(latitude, longitude);
-      this.setState({ isLoading: false });
     } catch (error) {
       Alert.alert("위치를 찾을 수가 없습니다.");
     }
-  }
+  };
   componentDidMount() {
     this.getLocation();
   }
@@ -50,4 +49,3 @@ export default class extends React.Component {
     );
   }
 }
-
